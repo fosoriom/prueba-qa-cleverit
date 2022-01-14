@@ -1,0 +1,16 @@
+#Respuesta pregunta 3
+
+ Para el caso 1 las tecnicas que se utilizaron fueron:
+- Analisis de valor limite 
+   se utilizó en los casos de sensitive-case cuando eran Country y City validos pero tenian esa diferencia de minúscula y mayúscula
+
+-Condiciones de cobertura 
+ 	para el caso 1 se utilizó para Fecha, Country y City ya que se necesitaba probar el cambio de combinaciones.
+
+Para el caso 2 se utilizó :
+ -Adivinación de errores
+   Para validar consistencia de los campos.
+
+
+Los puntos que hay que tener encuenta en la consistencia de los datos y los campos que entrega la respuesta.
+Otra cosa tener en cuenta son los codigos de respuesta para identificar de manera mas facil algún problema en el servicio

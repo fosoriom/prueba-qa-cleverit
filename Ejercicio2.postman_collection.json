@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "1469f92c-cdab-438a-84b0-93d7bffcfec5",
+		"name": "Ejercicio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Request_Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar codigo status\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,300,400,404])\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar campo id numerico\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    _.each(jsonData, (arrItem) => {\r",
+							"        //console.log(arrItem.id);\r",
+							"        pm.expect(Number.isInteger(arrItem.id)).is.true;\r",
+							"    })\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar username no null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.username).to.not.null\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar username no vacío\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.username).length > 0\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar formato email\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    _.each(jsonData, (arrItem) => {\r",
+							"        pm.expect(EsEmailValido(arrItem.email)).is.true;\r",
+							"    })\r",
+							"});\r",
+							"\r",
+							"function EsEmailValido(email) {    \r",
+							"    let pattern =/^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;\r",
+							"\r",
+							"  if (pattern.test(email)){  \r",
+							"    return true;\r",
+							"  } else {\r",
+							"    return false;\r",
+							"  }\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/users",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request_Photos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Validar codigo status\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,300,400,404])\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar total registros\", function () {\r",
+							"    let totalRegistros = 5000;\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.length === totalRegistros;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar campo albumId numerico\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    _.each(jsonData, (arrItem) => {\r",
+							"        //console.log(arrItem.albumId);\r",
+							"        pm.expect(Number.isInteger(arrItem.albumId)).is.true;\r",
+							"    })\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campo title no null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.title).to.not.null\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campo title no vacío\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.title).length > 0\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar campo url dentro response\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"url\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar campo thumbnailUrl dentro response\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"thumbnailUrl\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validar tamano imagen url 600\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    _.each(jsonData, (arrItem) => {\r",
+							"        //console.log(arrItem.url.split('/')[3]);\r",
+							"        pm.expect(arrItem.url.split('/')[3]).to.eql(\"600\");\r",
+							"    })\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar tamano imagen thumbnailUrl 150\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    _.each(jsonData, (arrItem) => {\r",
+							"        pm.expect(arrItem.thumbnailUrl.split('/')[3]).to.eql(\"150\");\r",
+							"    })\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/photos",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request_Comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar codigo status\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,300,400,404])\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar campo postId numerico\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    _.each(jsonData, (arrItem) => {\r",
+							"        //console.log(arrItem.postId);\r",
+							"        pm.expect(Number.isInteger(arrItem.postId)).is.true;\r",
+							"    })\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campo name no null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.not.null\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campo name no vacío\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).length > 0\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar formato email \", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    _.each(jsonData, (arrItem) => {\r",
+							"        pm.expect(EsEmailValido(arrItem.email)).is.true;\r",
+							"    })\r",
+							"});\r",
+							"\r",
+							"function EsEmailValido(email) {\r",
+							"    \r",
+							"    let pattern =/^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;\r",
+							"  \r",
+							"    if (pattern.test(email)){  \r",
+							"        return true;\r",
+							"    } else {\r",
+							"        return false;\r",
+							"  }\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/comments",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
